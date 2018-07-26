@@ -1,0 +1,34 @@
+$(function(){
+	$('#grid').datagrid({
+		title:'销售警告',
+		url:'storedetail!getStoreAlertList.action',
+		columns:[[
+			{field:'uuid',title:'编号',width:100},
+            {field:'name',title:'名称',width:100},
+            {field:'storenum',title:'库存',width:100},
+            {field:'outnum',title:'预售',width:100}
+		]],
+		singleSelect:true,
+		pagination:true,
+		toolbar:[{
+			text:'发送预警邮件',
+			iconCls:'icon-alert',
+			handler:function(){
+				$.ajax({
+					url:'storedetail!sendStorealertMail.action',
+					dataType:'json',
+					type:'post',
+					success:function(result){
+						$.messager.show({
+							title:'提示',
+							msg:result.message,
+							timeout:5000,
+							showType:'slide'
+						});
+
+					}
+				})
+			}
+		}]
+	})
+})
