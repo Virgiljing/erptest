@@ -30,6 +30,7 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">false</prop>
                 <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>  
             </props>
         </property>
         <property name="packagesToScan" value="cn.itcast.erp.entity">
