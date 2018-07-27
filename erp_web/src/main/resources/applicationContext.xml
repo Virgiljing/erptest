@@ -249,6 +249,14 @@
 	<!-- 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="erpRealm"></property>
+		<property name="rememberMeManager" ref="rememberMeManager"></property>
+	</bean>
+	<bean id="cookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<property name="maxAge" value="604800"></property>
+		<property name="name" value="rememberMe"></property>
+	</bean>
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="cookie"></property>
 	</bean>
 	<bean id="erpRealm" class="cn.itcast.erp.realm.ErpRealm">
 		<property name="authorizationCacheName" value="shiro-authorizationCache"/>

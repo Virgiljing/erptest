@@ -1,5 +1,6 @@
 package cn.itcast.erp.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,8 +20,12 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 @Entity
 @Table(name="goodstype")
-public class Goodstype {
-    @Id
+public class Goodstype implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(generator="goodstypeKeyGenerator",strategy=GenerationType.SEQUENCE)
     @GenericGenerator(name="goodstypeKeyGenerator",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",
                 parameters= {@Parameter(name="sequence_name",value="goodstype_seq")}

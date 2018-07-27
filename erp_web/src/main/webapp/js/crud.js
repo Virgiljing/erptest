@@ -26,7 +26,7 @@ $(function(){
 				iconCls: 'icon-excel',
 				handler: function(){
 					var submitData = $('#searchForm').serializeJSON();
-					$.download("supplier!export.action"+listParam,submitData)
+					$.download(name+"!export.action"+listParam,submitData)
 				}
 			},
 			{
@@ -108,7 +108,7 @@ $(function(){
 						// 表单提交的数据类型
 						var formData = new FormData($('#doImportForm')[0]);
 						$.ajax({
-							url: 'supplier!doImport.action',
+							url: name+'!doImport.action',
 							data: formData,
 							dataType: 'json',
 							type: 'post',

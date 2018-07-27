@@ -10,6 +10,7 @@
 <script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
 <script type="text/javascript" src="js/crud.js"></script>
+<script type="text/javascript" src="ui/download.js"></script>
 <script type="text/javascript">
     var name="goods";
     height = 300;
@@ -85,6 +86,13 @@
 </tr>
 
         </table>
+    </form>
+</div>
+
+<!-- 导入窗口 -->
+<div id="doImportDlg" style="padding:2px;">
+    <form id="doImportForm" enctype="multipart/form-data">
+        导入文件：<input type="file" name="file">
     </form>
 </div>
 </body>

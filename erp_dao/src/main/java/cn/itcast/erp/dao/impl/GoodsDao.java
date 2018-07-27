@@ -56,6 +56,9 @@ public class GoodsDao extends BaseDao<Goods> implements IGoodsDao {
              if (null != goods2.getOutprice()) {
              	dc.add(Restrictions.le("outprice", goods2.getOutprice()));
              }
+             if(!StringUtils.isEmpty(goods2.getName())){
+                 dc.add(Restrictions.eq("name", goods2.getName()));
+             }
 		}
         return dc;
     }

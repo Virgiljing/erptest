@@ -1,5 +1,7 @@
 package cn.itcast.erp.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,8 +18,12 @@ import org.hibernate.annotations.Parameter;
  */
 @Entity
 @Table(name="goods")
-public class Goods {
-    @Id
+public class Goods implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     @GeneratedValue(generator="goodsKeyGenerator",strategy=GenerationType.SEQUENCE)
     @GenericGenerator(name="goodsKeyGenerator",strategy="org.hibernate.id.enhanced.SequenceStyleGenerator",
                 parameters= {@Parameter(name="sequence_name",value="goods_seq")}
