@@ -39,7 +39,7 @@ public class StoredetailAction extends BaseAction<Storedetail> {
     }
     public void sendStorealertMail() {
     	try {
-			storedetailBiz.sendStorealertMail();
+			storedetailBiz.sendStorealertMailTemplate();
 			WebUtil.ajaxReturn(true, "预警邮件发送成功");
 		} catch (MessagingException e) {
 			log.error("预警邮件发送失败",e);
