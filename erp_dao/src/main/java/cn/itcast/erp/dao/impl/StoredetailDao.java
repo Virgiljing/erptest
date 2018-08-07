@@ -43,7 +43,7 @@ public class StoredetailDao extends BaseDao<Storedetail> implements IStoredetail
 	
 	@Override
 	public List<StoreAlert> getStoreAlertList() {
-		String hql = "from StoreAlert where storenum<outnum or storenum<50";
+		String hql = "from StoreAlert where storenum<outnum ";
 		return (List<StoreAlert>) this.getHibernateTemplate().find(hql);
 	}
 }

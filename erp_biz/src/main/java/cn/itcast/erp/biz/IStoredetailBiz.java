@@ -21,5 +21,10 @@ public interface IStoredetailBiz extends IBaseBiz<Storedetail>{
 	 * @throws MessagingException 
 	 */
 	void sendStorealertMail() throws MessagingException;
+	/**
+	 * 发送预警邮件
+	 * @throws MessagingException 
+	 */
+	void sendStorealertMailTemplate() throws MessagingException;
 }
 

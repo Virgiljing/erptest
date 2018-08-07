@@ -1,8 +1,11 @@
 package cn.itcast.erp.biz.impl;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -10,6 +13,7 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import cn.itcast.erp.biz.IStoredetailBiz;
 import cn.itcast.erp.dao.IGoodsDao;
@@ -19,6 +23,9 @@ import cn.itcast.erp.entity.StoreAlert;
 import cn.itcast.erp.entity.Storedetail;
 import cn.itcast.erp.exception.ErpException;
 import cn.itcast.erp.util.MailUtil;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 /**
  * 仓库库存业务逻辑类
@@ -51,6 +58,8 @@ public class StoredetailBiz extends BaseBiz<Storedetail> implements IStoredetail
 		return storedetailDao.getStoreAlertList();
 	}
 	@Autowired
+	private Configuration freeMarker;
+	@Autowired
 	private MailUtil mailUtil;
 	@Value("${mail.storealert_title}")
 	private String title;
@@ -69,5 +78,28 @@ public class StoredetailBiz extends BaseBiz<Storedetail> implements IStoredetail
 		}else {
 			throw new ErpException("没有需要预警的商品库存");
 		}
+	}
+	@Override
+	public void sendStorealertMailTemplate() throws MessagingException {
+		List<StoreAlert> list = storedetailDao.getStoreAlertList();
+		try {
+			if (null!=list&&list.size()>0) {
+				//获取模板
+				Template template = freeMarker.getTemplate("email.html");
+				//创建数据模型
+				Map<String, Object> dataModel = new HashMap<>();
+				dataModel.put("storealertList", list);
+				SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+				String _title = title.replace("[time]", sdf.format(new Date()));
+				//把数据模型中的数据填充到_content中，并转成字符串
+				String _content = FreeMarkerTemplateUtils.processTemplateIntoString(template, dataModel);
+				mailUtil.sendMail(to, _title, _content);
+			}else {
+				throw new ErpException("没有需要预警的商品库存");
+			}
+		} catch (IOException | TemplateException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
